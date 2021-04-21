@@ -1,0 +1,7 @@
+{
+  "name": "catatar",
+  "id": "966550997794143159",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "networkWorker.html"
+}

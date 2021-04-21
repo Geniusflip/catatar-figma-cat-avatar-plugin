@@ -1,0 +1,21 @@
+<script>
+    window.onmessage = async (e) => {
+      if (e.data.pluginMessage && e.data.pluginMessage.type === 'networkRequest') {
+        
+        const byteArrays = [];
+
+        const data = await fetch(`http://localhost:3000/${e.data.pluginMessage.num}`).then(async msg => await msg.json())
+        data.forEach(result => {
+            const bresult = atob(result);
+            const byteNumbers = new Array(bresult.length);
+            for (let i = 0; i < bresult.length; i++) {
+                byteNumbers[i] = bresult.charCodeAt(i);
+            }
+            byteArrays.push(new Uint8Array(byteNumbers));
+        })
+        window.parent.postMessage({pluginMessage: {
+            images: byteArrays,
+        }}, '*');
+        }
+    }
+</script>
